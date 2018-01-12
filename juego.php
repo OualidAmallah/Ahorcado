@@ -20,6 +20,7 @@ for ($i = 0; $i < strlen($incognita); $i++) {
    } 
 }
 ?>
+
 </h1>
 
 
@@ -36,6 +37,15 @@ for ($i = 0; $i < strlen($incognita); $i++) {
             endfor;
         ?>
     <label for="letra">Escriba una LETRA</label>
-    <input type="text" name="letra" pattern="[A-Za-z]{1}" maxlength="1"/>
+    <select name="letra">
+        <?php
+            for ($j = ord('a'); $j < ord('z'); $j++) :
+        ?>
+            <option value="<?php echo chr($j) ?>"><?php echo chr($j) ?></option>
+        <?php
+            endfor;
+        ?>
+    </select>
+    
     <input type="submit" value="Enviar">
 </form>
