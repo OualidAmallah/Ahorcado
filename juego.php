@@ -1,11 +1,11 @@
 <?php
 
 $incognita = htmlspecialchars($_POST['incognita']);
-$letra=isset($_POST['letra']) ? htmlspecialchars($_POST['letra']):'';
+$letra=isset($_POST['letra']) ? htmlspecialchars($_POST['letra']) : '';
 
-$vidas=isset($_POST['vidas']) ? (int)($_POST['vidas']):7;
+$vidas=isset($_POST['vidas']) ? (int)($_POST['vidas']) : 7;
 
-$letras=isset($_POST['letras']) ? ($_POST['letras']):array();
+$letras=isset($_POST['letras']) ? ($_POST['letras']) : array();
 
 if(preg_match("%[a-z]%", $letra) && !in_array($letra, $letras)){
     $letras[]=$letra;       
@@ -23,7 +23,8 @@ for ($i = 0; $i < strlen($incognita); $i++) {
                 echo $letra . "";
                 $con=true;
                 $ganar++;
-                $hasEcertado=true;
+                if($letra == $letras[count($letras)-1])
+                    $hasEcertado=true;
             }
    	}
        if(!$con){
@@ -32,21 +33,25 @@ for ($i = 0; $i < strlen($incognita); $i++) {
 }
 if(!$hasEcertado){
     $vidas--;
-    print_r($vidas);
+    // echo ($vidas) . '<br />';
 }
 ?>
 
 </h1>
 
 <?php
-if($ganar==strlen($incognita)): 
+if($ganar==strlen($incognita)) : 
 ?>   
    <h2>Has Ganado¡¡¡¡</h2> 
     <a href="index.html">Intentalo Otra Vez</a>
 <?php
-    else:
+    elseif($vidas===0) :
 ?>
-
+    <h2>Has Perdido¡¡¡¡</h2> 
+    <a href="index.html">Intentalo Otra Vez</a>
+<?php
+    else :
+?>  
 <form action="" method="post">
     <input type="hidden" name="incognita" value='<?php echo  $incognita ?>'/>
     <input type="hidden" name="vidas" value='<?php echo  $vidas ?>'/>
